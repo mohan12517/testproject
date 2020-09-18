@@ -8,15 +8,16 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-- task: AzureKeyVault@1
-  inputs:
-    azureSubscription: 'Free Trial(4cf73c14-c47d-4e0d-861e-d90490d2dc6b)'
-    KeyVaultName: 'mohanvault1'
-    SecretsFilter: '*'
-    RunAsPreJob: false
+
 variables:
   buildConfiguration: 'Release'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+- task: AzureKeyVault@1
+  inputs:
+    azureSubscription: 'Free Trial(4cf73c14-c47d-4e0d-861e-d90490d2dc6b)'
+    KeyVaultName: 'mohanvault1'
+    SecretsFilter: '*'
+    RunAsPreJob: true
